@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2020. Saincahi Project.
+  ~
+  ~ Licensed under the GNU General Public License v3.0
+  ~
+  ~ https://www.gnu.org/licenses/gpl-3.0.html
+  ~
+  ~ Permissions of this strong copyleft license are conditioned on making available complete
+  ~ source code of licensed works and modifications, which include larger works using a licensed
+  ~ work, under the same license. Copyright and license notices must be preserved. Contributors
+  ~ provide an express grant of patent rights.
+  -->
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/oPTTema"
+        android:icon="@drawable/ic_baseline_published_with_changes_24"
+        android:title="@string/oPTTema"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/oPTPermisos"
+        android:icon="@drawable/ic_baseline_app_settings_alt_24"
+        android:title="@string/oPTPermisos"
+        app:showAsAction="withText" />
+    <item
+        android:id="@+id/oPTHistorial"
+        android:icon="@drawable/ic_baseline_archive_24"
+        android:title="@string/oPTHistorial"
+        app:showAsAction="withText" />
+</menu>

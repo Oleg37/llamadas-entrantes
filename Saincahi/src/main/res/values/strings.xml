@@ -12,5 +12,13 @@
   -->
 
 <resources>
-    <string name="app_name">Saincahi</string>
+    <string name="app_name">Saincahi Application</string>
+    <string name="tVBienvenido">Bienvenido a la aplicación Saincahi</string>
+    <string name="oPTTema">Tema</string>
+    <string name="oPTPermisos">Permisos</string>
+    <string name="oPTHistorial">Ver historial</string>
+    <string name="bTEstado">Permiso para el estado del teléfono</string>
+    <string name="bTRegistro">Permiso para el registro de llamadas</string>
+    <string name="bTContactos">Permisos para obtener los contactos</string>
+    <string name="tVPermisos">Configuración de permisos</string>
 </resources>
