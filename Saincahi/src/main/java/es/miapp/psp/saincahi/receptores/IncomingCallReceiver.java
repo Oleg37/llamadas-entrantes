@@ -16,7 +16,9 @@ package es.miapp.psp.saincahi.receptores;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import static es.miapp.psp.saincahi.MainActivity.TAG;
 
@@ -32,11 +34,15 @@ import static es.miapp.psp.saincahi.MainActivity.TAG;
 public class IncomingCallReceiver extends BroadcastReceiver {
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context context, Intent i) {
         Log.v(TAG, "Receiver de Incoming Calls Receiver");
 
-//        if (intent.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
-//            Toast.makeText(context, "Llamada cogida", Toast.LENGTH_SHORT).show();
-//        } else Toast.makeText(context, "Llamada rechazada", Toast.LENGTH_SHORT).show();
+        if (i.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_OFFHOOK)) {
+            Toast.makeText(context, "Llamada cogida", Toast.LENGTH_SHORT).show();
+        } else if (i.getStringExtra(TelephonyManager.EXTRA_STATE).equals(TelephonyManager.EXTRA_STATE_IDLE)) {
+            Toast.makeText(context, "Llamada finalizada", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Llamada entrante", Toast.LENGTH_SHORT).show();
+        }
     }
 }

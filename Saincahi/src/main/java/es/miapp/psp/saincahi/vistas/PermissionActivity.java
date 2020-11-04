@@ -22,6 +22,7 @@ import android.util.Log;
 import android.widget.Button;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
@@ -41,6 +42,7 @@ public class PermissionActivity extends AppCompatActivity {
         clasePermisos();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void clasePermisos() {
         Button bTEstado = findViewById(R.id.bTEstado);
         Button bTContactos = findViewById(R.id.bTContactos);
@@ -53,7 +55,9 @@ public class PermissionActivity extends AppCompatActivity {
                 Log.v(TAG, "Tengo permisos de READ PHONE STATE");
                 bTEstado.setBackgroundColor(Color.BLACK);
                 bTEstado.setEnabled(false);
+                bTEstado.setTextColor(Color.GREEN);
             } else {
+                bTEstado.setTextColor(Color.RED);
                 Log.v(TAG, "No tengo permisos de READ PHONE STATE");
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                     requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, PERMISOS);
@@ -62,15 +66,19 @@ public class PermissionActivity extends AppCompatActivity {
 
         bTContactos.setOnClickListener(e -> {
             int permiso2 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG);
+            int permiso3 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALL_LOG);
 
-            if (permiso2 == PackageManager.PERMISSION_GRANTED) {
-                Log.v(TAG, "Tengo permisos de READ CALL LOG");
+            if (permiso2 == PackageManager.PERMISSION_GRANTED && permiso3 == PackageManager.PERMISSION_GRANTED) {
+                Log.v(TAG, "Tengo permisos de READ/WRITE CALL LOG");
                 bTContactos.setBackgroundColor(Color.BLACK);
                 bTContactos.setEnabled(false);
+                bTContactos.setTextColor(Color.GREEN);
             } else {
-                Log.v(TAG, "No tengo permisos de READ CALL LOG");
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
-                    requestPermissions(new String[]{Manifest.permission.READ_CALL_LOG}, PERMISOS);
+                bTContactos.setTextColor(Color.RED);
+                Log.v(TAG, "No tengo permisos de READ/WRITE CALL LOG");
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    requestPermissions(new String[]{Manifest.permission.READ_CALL_LOG, Manifest.permission.WRITE_CALL_LOG}, PERMISOS);
+                }
             }
         });
 
@@ -80,7 +88,9 @@ public class PermissionActivity extends AppCompatActivity {
                 Log.v(TAG, "Tengo permisos de READ CONTACTS");
                 bTRegistro.setBackgroundColor(Color.BLACK);
                 bTRegistro.setEnabled(false);
+                bTRegistro.setTextColor(Color.GREEN);
             } else {
+                bTRegistro.setTextColor(Color.RED);
                 Log.v(TAG, "No tengo permisos de READ CONTACTS");
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M)
                     requestPermissions(new String[]{Manifest.permission.READ_CONTACTS}, PERMISOS);

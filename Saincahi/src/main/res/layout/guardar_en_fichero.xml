@@ -16,37 +16,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
-        android:id="@+id/eTResultado"
+    <Button
+        android:id="@+id/bTMemInterna"
         android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:editable="false"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/bTObtenerDatos"
+        android:layout_height="wrap_content"
+        android:text="@string/bTMemInterna"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/bTObtenerDatos"
+        android:id="@+id/bTMemExterna"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/bTObtenerDatos"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/bTEliminar"
-        app:layout_constraintHorizontal_bias="0.0"
+        android:text="@string/bTMemExterna"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/eTResultado" />
+        app:layout_constraintTop_toBottomOf="@+id/bTMemInterna" />
 
-    <Button
-        android:id="@+id/bTEliminar"
+    <EditText
+        android:id="@+id/eTGuardar"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/bTEliminar"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/bTObtenerDatos"
-        app:layout_constraintTop_toBottomOf="@+id/eTResultado" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bTMemExterna" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

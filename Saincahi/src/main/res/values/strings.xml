@@ -17,8 +17,13 @@
     <string name="oPTTema">Tema</string>
     <string name="oPTPermisos">Permisos</string>
     <string name="oPTHistorial">Ver historial</string>
+    <string name="oPGuardar">Guardar en fichero</string>
     <string name="bTEstado">Permiso para el estado del teléfono</string>
     <string name="bTRegistro">Permiso para el registro de llamadas</string>
     <string name="bTContactos">Permisos para obtener los contactos</string>
     <string name="tVPermisos">Configuración de permisos</string>
+    <string name="bTObtenerDatos">Obtener historial</string>
+    <string name="bTEliminar">Eliminar historial</string>
+    <string name="bTMemInterna">Guardar en memoria interna</string>
+    <string name="bTMemExterna">Guardar en memoria externa</string>
 </resources>

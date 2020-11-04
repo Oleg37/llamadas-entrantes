@@ -18,55 +18,54 @@ import android.os.Bundle;
 import android.provider.CallLog;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import es.miapp.psp.saincahi.Contactos;
 import es.miapp.psp.saincahi.R;
 
 import static es.miapp.psp.saincahi.MainActivity.TAG;
 
-public class VerFichero extends AppCompatActivity {
+//import es.miapp.psp.saincahi.util.ContactoComparator;
 
-    private TextView eTResultado;
-    private Button bTObtenerDatos, bTEliminar;
+public class GuardarFichero extends AppCompatActivity {
+
+    private Button bTMemInterna, bTMemExterna;
+    private EditText eTGuardar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ver_fichero);
+        setContentView(R.layout.guardar_en_fichero);
 
         init();
     }
 
     private void init() {
-        eTResultado = findViewById(R.id.eTResultado);
-        bTObtenerDatos = findViewById(R.id.bTObtenerDatos);
-        bTEliminar = findViewById(R.id.bTEliminar);
+        eTGuardar = findViewById(R.id.eTGuardar);
 
-        eTResultado.isInEditMode();
-
-        bTObtenerDatos.setOnClickListener(e -> {
-            eTResultado.setText("");
-            getContactos();
-        });
-
-        bTEliminar.setOnClickListener(e -> {
-            this.getContentResolver().delete(CallLog.Calls.CONTENT_URI, null, null);
-            eTResultado.setText("");
-        });
+        eTGuardar.setText("");
+        getContactosLlamada();
     }
 
-    private void getContactos() {
+    private void getContactosLlamada() {
 //        List<String> datos = new ArrayList<>();
 //        String[] datos = new String[]{CallLog.Calls.DATE, CallLog.Calls.NUMBER, CallLog.Calls.CACHED_NAME};
 
@@ -94,11 +93,6 @@ public class VerFichero extends AppCompatActivity {
             int pos = curIncomingCall.getPosition() + 1;
 
             namePh = namePh == null ? "Desconocido" : namePh;
-            eTResultado.append("Llamada -> " + pos
-                    + "\nFecha: " + fechaFinal
-                    + "\nNúmero: " + phNumber
-                    + "\nNombre: " + namePh + "\n\n");
-
 
             SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss", Locale.FRANCE);
 
@@ -118,11 +112,75 @@ public class VerFichero extends AppCompatActivity {
 
                 fechaFinal3 = agno + "; " + mes + "; " + dia + "; " + hora + "; " + minuto + "; " + second + "; " + phNumber + "; " + namePh + ";\n";
 
+                Contactos contacto = new Contactos(agno, mes, dia, hora, minuto, second, Integer.parseInt(phNumber), namePh);
+
+                guardarContactos(contacto);
+
+                eTGuardar.setText(contacto.toCSV());
+
                 Log.v(TAG, fechaFinal3);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
         }
         curIncomingCall.close();
+        leerContactos();
+    }
+
+    private List<Contactos> getContactos() {
+        List<Contactos> listaContactos = new ArrayList<>();
+        File f = new File(getExternalFilesDir(null), "BackUp.csv");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                listaContactos.add(Contactos.fromCSVString(linea, ";"));
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        Collections.sort(listaContactos); // compareTo, Ordeno
+        return listaContactos;
+    }
+
+    private void leerContactos() {
+        File f = new File(getExternalFilesDir(null), "BackUp.csv");
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(f));
+            String linea;
+            StringBuilder texto = new StringBuilder();
+            while ((linea = br.readLine()) != null) {
+                Contactos.fromCSVString(linea, ";");
+                texto.append(linea);
+                texto.append("\n");
+            }
+            eTGuardar.setText(texto);
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean guardarContactos(Contactos contacto) {
+        List<Contactos> contactos = getContactos();
+        contactos.add(contacto);
+
+//        Collections.sort(contactos, new ContactoComparator()); // Ordenamos al revés, usando el compare() de la clase CocheComparator
+
+        boolean resultado = true;
+        File f = new File(getExternalFilesDir(null), "BackUp.csv");
+        FileWriter fw;
+        try {
+            fw = new FileWriter(f);
+            for (Contactos c : contactos) {
+                fw.write(c.toCSV() + "\n");
+            }
+            fw.flush();
+            fw.close();
+        } catch (IOException e) {
+            resultado = false;
+        }
+        return resultado;
     }
 }

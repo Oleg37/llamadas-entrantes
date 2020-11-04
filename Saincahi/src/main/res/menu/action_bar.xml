@@ -29,4 +29,9 @@
         android:icon="@drawable/ic_baseline_archive_24"
         android:title="@string/oPTHistorial"
         app:showAsAction="withText" />
+    <item
+        android:id="@+id/oPGuardar"
+        android:icon="@drawable/ic_baseline_save_24"
+        android:title="@string/oPGuardar"
+        app:showAsAction="withText" />
 </menu>

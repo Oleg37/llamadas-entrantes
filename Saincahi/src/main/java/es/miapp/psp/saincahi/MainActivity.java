@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
 
 import es.miapp.psp.saincahi.receptores.IncomingCallReceiver;
+import es.miapp.psp.saincahi.vistas.GuardarFichero;
 import es.miapp.psp.saincahi.vistas.PermissionActivity;
 import es.miapp.psp.saincahi.vistas.VerFichero;
 
@@ -69,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.oPTTema:
+                // TODO, NO IMPLEMENTADO AÚN
                 Toast.makeText(this, "Has presionado cambiar de tema", Toast.LENGTH_SHORT).show();
                 return true;
             case R.id.oPTPermisos:
@@ -78,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.oPTHistorial:
                 Toast.makeText(this, "Has seleccionado mostrar el historial", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, VerFichero.class));
+                return true;
+            case R.id.oPGuardar:
+                Toast.makeText(this, "Has seleccionado guardar en fichero", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(this, GuardarFichero.class));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
