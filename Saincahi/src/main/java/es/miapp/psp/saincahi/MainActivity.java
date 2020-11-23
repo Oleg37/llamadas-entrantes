@@ -13,23 +13,27 @@
 
 package es.miapp.psp.saincahi;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuBuilder;
+import androidx.core.content.ContextCompat;
 
+import es.miapp.psp.saincahi.permisos.PermissionActivity;
 import es.miapp.psp.saincahi.receptores.IncomingCallReceiver;
 import es.miapp.psp.saincahi.vistas.GuardarFichero;
-import es.miapp.psp.saincahi.vistas.PermissionActivity;
 import es.miapp.psp.saincahi.vistas.VerFichero;
 
 /**
@@ -46,11 +50,14 @@ public class MainActivity extends AppCompatActivity {
     public static final String TAG = "xyzxy -> " + MainActivity.class.getName();
 
     private final IncomingCallReceiver incomingCallReceiver = new IncomingCallReceiver();
+    private TextView tVPermisosInicio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        tVPermisosInicio = findViewById(R.id.tVPermisosInicio);
     }
 
     @SuppressLint("RestrictedApi")
@@ -68,26 +75,29 @@ public class MainActivity extends AppCompatActivity {
     @SuppressLint("NonConstantResourceId")
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.oPTTema:
-                // TODO, NO IMPLEMENTADO AÚN
-                Toast.makeText(this, "Has presionado cambiar de tema", Toast.LENGTH_SHORT).show();
-                return true;
-            case R.id.oPTPermisos:
-                Toast.makeText(this, "Has seleccionado mostrar permisos", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, PermissionActivity.class));
-                return true;
-            case R.id.oPTHistorial:
-                Toast.makeText(this, "Has seleccionado mostrar el historial", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, VerFichero.class));
-                return true;
-            case R.id.oPGuardar:
-                Toast.makeText(this, "Has seleccionado guardar en fichero", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(this, GuardarFichero.class));
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.oPTPermisos || !permisos()) {
+            Toast.makeText(this, "Redirigiendo a permisos", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(this, PermissionActivity.class));
+            return true;
+        } else if (permisos()) {
+            switch (item.getItemId()) {
+                case R.id.oPTTema:
+                    // TODO, NO IMPLEMENTADO AÚN
+                    Toast.makeText(this, "Has presionado cambiar de tema", Toast.LENGTH_SHORT).show();
+                    return true;
+                case R.id.oPTHistorial:
+                    Toast.makeText(this, "Has seleccionado mostrar el historial", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, VerFichero.class));
+                    return true;
+                case R.id.oPGuardar:
+                    Toast.makeText(this, "Has seleccionado guardar en fichero", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(this, GuardarFichero.class));
+                    return true;
+                default:
+                    return super.onOptionsItemSelected(item);
+            }
         }
+        return true;
     }
 
     @Override
@@ -97,5 +107,14 @@ public class MainActivity extends AppCompatActivity {
         if (incomingCallReceiver.isOrderedBroadcast()) {
             Log.v(TAG, "Buenos días");
         }
+    }
+
+    private boolean permisos() {
+        int permiso1 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE);
+        int permiso2 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CALL_LOG);
+        int permiso3 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALL_LOG);
+        int permiso4 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
+        int general = PackageManager.PERMISSION_GRANTED;
+        return permiso1 == general && permiso2 == general && permiso3 == general && permiso4 == general;
     }
 }

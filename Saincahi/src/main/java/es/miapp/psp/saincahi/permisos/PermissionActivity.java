@@ -11,7 +11,7 @@
  * provide an express grant of patent rights.
  */
 
-package es.miapp.psp.saincahi.vistas;
+package es.miapp.psp.saincahi.permisos;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -34,16 +34,17 @@ public class PermissionActivity extends AppCompatActivity {
 
     private static final int PERMISOS = 1;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.permission_layout);
 
-        clasePermisos();
+        obtenerPermisos();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void clasePermisos() {
+    private void obtenerPermisos() {
         Button bTEstado = findViewById(R.id.bTEstado);
         Button bTContactos = findViewById(R.id.bTContactos);
         Button bTRegistro = findViewById(R.id.bTRegistro);
@@ -83,8 +84,8 @@ public class PermissionActivity extends AppCompatActivity {
         });
 
         bTRegistro.setOnClickListener(e -> {
-            int permiso3 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
-            if (permiso3 == PackageManager.PERMISSION_GRANTED) {
+            int permiso4 = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS);
+            if (permiso4 == PackageManager.PERMISSION_GRANTED) {
                 Log.v(TAG, "Tengo permisos de READ CONTACTS");
                 bTRegistro.setBackgroundColor(Color.BLACK);
                 bTRegistro.setEnabled(false);

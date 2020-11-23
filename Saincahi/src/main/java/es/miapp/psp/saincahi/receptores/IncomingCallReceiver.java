@@ -16,6 +16,7 @@ package es.miapp.psp.saincahi.receptores;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -33,6 +34,8 @@ import static es.miapp.psp.saincahi.MainActivity.TAG;
 
 public class IncomingCallReceiver extends BroadcastReceiver {
 
+    String numTlf;
+
     @Override
     public void onReceive(Context context, Intent i) {
         Log.v(TAG, "Receiver de Incoming Calls Receiver");
@@ -44,5 +47,18 @@ public class IncomingCallReceiver extends BroadcastReceiver {
         } else {
             Toast.makeText(context, "Llamada entrante", Toast.LENGTH_SHORT).show();
         }
+
+        numTel(i, context);
+    }
+
+    private void numTel(Intent i, Context context) {
+        TelephonyManager telephony = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        telephony.listen(new PhoneStateListener() {
+            @Override
+            public void onCallStateChanged(int state, String incomingNumber) {
+                super.onCallStateChanged(state, incomingNumber);
+                numTlf = i.getStringExtra(incomingNumber);
+            }
+        }, PhoneStateListener.LISTEN_CALL_STATE);
     }
 }

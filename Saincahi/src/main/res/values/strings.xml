@@ -26,4 +26,8 @@
     <string name="bTEliminar">Eliminar historial</string>
     <string name="bTMemInterna">Guardar en memoria interna</string>
     <string name="bTMemExterna">Guardar en memoria externa</string>
+    <string name="bTLeerMemInterna">Leer en memoria interna</string>
+    <string name="bTLeerMemExterna">Leer en memoria externa</string>
+    <string name="bTBorrarFichero">Borrar Contenido Interno</string>
+    <string name="bTBorrarFicheroExterno">Borrar Contenido Externo</string>
 </resources>

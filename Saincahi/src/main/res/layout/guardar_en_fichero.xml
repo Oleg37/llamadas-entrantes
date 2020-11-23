@@ -17,11 +17,35 @@
     android:layout_height="match_parent">
 
     <Button
+        android:id="@+id/bTLeerMemInterna"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/bTLeerMemInterna"
+        android:textColor="#6BF3F3"
+        app:layout_constraintBottom_toTopOf="@+id/bTBorrarFicheroInterno"
+        app:layout_constraintEnd_toStartOf="@+id/bTLeerMemExterna"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bTMemInterna" />
+
+    <Button
+        android:id="@+id/bTLeerMemExterna"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/bTLeerMemExterna"
+        android:textColor="#6BF3F3"
+        app:layout_constraintBottom_toTopOf="@+id/bTBorrarFicheroExterno"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bTLeerMemInterna"
+        app:layout_constraintTop_toBottomOf="@+id/bTMemExterna" />
+
+    <Button
         android:id="@+id/bTMemInterna"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/bTMemInterna"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="#92F853"
+        app:layout_constraintBottom_toTopOf="@+id/bTLeerMemInterna"
+        app:layout_constraintEnd_toStartOf="@+id/bTMemExterna"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,21 +54,61 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/bTMemExterna"
+        android:textColor="#92F853"
+        app:layout_constraintBottom_toTopOf="@+id/bTLeerMemExterna"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bTMemInterna" />
+        app:layout_constraintStart_toEndOf="@+id/bTMemInterna"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/eTGuardar"
+    <Button
+        android:id="@+id/bTBorrarFicheroInterno"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/bTBorrarFichero"
+        android:textColor="#FF3232"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toStartOf="@+id/bTBorrarFicheroExterno"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bTLeerMemInterna" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:gravity="start|top"
-        android:inputType="textMultiLine"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bTMemExterna" />
+        app:layout_constraintTop_toBottomOf="@+id/bTBorrarFicheroInterno">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/eTGuardar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Button
+        android:id="@+id/bTBorrarFicheroExterno"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/bTBorrarFicheroExterno"
+        android:textColor="#FF3232"
+        app:layout_constraintBottom_toBottomOf="@+id/bTBorrarFicheroInterno"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/bTBorrarFicheroInterno"
+        app:layout_constraintTop_toBottomOf="@+id/bTLeerMemExterna" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,31 +12,28 @@
  */
 
 package es.miapp.psp.saincahi.util;
-//
-//import java.util.Comparator;
-//
-//import es.miapp.psp.saincahi.Contactos;
-//
-//public class ContactoComparator implements Comparator<Contactos> {
-//    @Override
-//    public int compare(Contactos o1, Contactos o2) {
-////        int sort = o1.getMarca().compareTo(o2.getMarca());
-////        if (sort == 0) {
-////            sort = o1.getModelo().compareTo(o2.getModelo());
-////            if (sort == 0)
-////                sort = o1.getYear() - o2.getYear();
-////        }
-////        return -sort;
-////        return -o1.compareTo(o2);
-////        return o2.compareTo(o1);
-//
-//        int sort = o1.getYear() - o2.getYear();
+
+import java.util.Comparator;
+
+import es.miapp.psp.saincahi.Contactos;
+
+public class ContactoComparator implements Comparator<Contactos> {
+    @Override
+    public int compare(Contactos con1, Contactos con2) {
+//        int sort = o1.getMarca().compareTo(o2.getMarca());
 //        if (sort == 0) {
-//            sort = o1.getMarca().compareTo(o2.getMarca());
-//            if (sort == 0) {
-//                sort = o1.getModelo().compareTo(o2.getModelo());
-//            }
+//            sort = o1.getModelo().compareTo(o2.getModelo());
+//            if (sort == 0)
+//                sort = o1.getYear() - o2.getYear();
 //        }
-//        return sort;
-//    }
-//}
+//        return -sort;
+//        return -o1.compareTo(o2);
+//        return o2.compareTo(o1);
+
+        int sort = con1.getFecha().compareTo(con2.getFecha());
+        if (sort == 0) {
+            sort = con1.getNombre().compareTo(con2.getNombre());
+        }
+        return sort;
+    }
+}
